@@ -1,27 +1,11 @@
-
-
-const BookingRaw = ({booking}) => {
-    console.log(booking);
-    const {_id,img,name,date,price,email} = booking;
-     const handelDelete = (id) =>{
-        console.log(id);
-        const procced = confirm('Are Your want to Delete')
-    if(procced){
-        fetch(`http://localhost:5000/bookings/${id}`,{
-            method:"DELETE",
-            headers:{
-                "content-type":"application/json"
-            }
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
-
-        }
-     }
+const BookingRaw = ({booking, handelDelete, handelUpdate}) => {
+  console.log(booking);
+  const {_id, img, name, date, price, email, stutas} = booking;
+  console.log(stutas);
   return (
     <tr>
       <th>
-        <button onClick={()=>handelDelete(_id)} className="btn btn-circle">
+        <button onClick={() => handelDelete(_id)} className="btn btn-circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -54,7 +38,14 @@ const BookingRaw = ({booking}) => {
       <td>{date}</td>
       <td>${price}</td>
       <th>
-        <button className="btn btn-ghost btn-xs">details</button>
+        {stutas === "Confirmed" ? 
+          <button className="btn btn-ghost btn-xs text-green-700">Confirmed</button>
+         : 
+          <button
+            onClick={() => handelUpdate(_id)}
+            className="btn btn-ghost btn-xs text-red-600"
+          >Please Confirm</button>
+        }
       </th>
     </tr>
   );
