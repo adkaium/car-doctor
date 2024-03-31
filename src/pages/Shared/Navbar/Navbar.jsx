@@ -19,7 +19,7 @@ const Navbar = () => {
     const navItem = (
       <>
         <li>
-          <a>Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li>
           <a>About</a>
@@ -30,7 +30,7 @@ const Navbar = () => {
         {user?.email ? (
           <>
             <li>
-              <Link to={'/bookings'}>My Bookings</Link>
+              <Link to={"/bookings"}>My Bookings</Link>
             </li>
             <li>
               <Link to={"/login"} onClick={handelLogOut}>
@@ -39,9 +39,14 @@ const Navbar = () => {
             </li>
           </>
         ) : (
-          <li>
-            <Link to={"/login"}>Log In</Link>
-          </li>
+          <>
+            <li>
+              <Link to={"/login"}>Log In</Link>
+            </li>
+            <li>
+              <Link to='/signup'>Sign Up</Link>
+            </li>
+          </>
         )}
       </>
     );

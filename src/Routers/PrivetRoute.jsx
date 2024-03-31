@@ -1,10 +1,11 @@
 import  { useContext } from 'react';
 import { AuthContext } from '../ContextProvider/ContextProvider';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivetRoute = ({children}) => {
     const {user, lodear} = useContext(AuthContext);
-    
+    const location = useLocation();
+    console.log(location.pathname);
     if(lodear){
         return (
           <>
@@ -15,10 +16,10 @@ const PrivetRoute = ({children}) => {
           </>
         );
      }
-    if(user.email){
+    if(user?.email){
         return children
     }
-    return (<Navigate to='/login' replace></Navigate>);
+    return (<Navigate to='/login' state={location.pathname} replace></Navigate>);
 };
 
 export default PrivetRoute;

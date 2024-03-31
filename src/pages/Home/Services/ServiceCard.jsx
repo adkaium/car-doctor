@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {BsArrowRight} from "react-icons/bs";
 
 const ServiceCard = ({service}) => {
-  const {_id,img, title, price} = service;
+  const {_id,img, title, price,} = service;
   return (
     <div>
       <div className="card w-[359px] h-[340px] bg-base-100 shadow-xl">

@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import logImg from "../../assets/images/login/login.svg";
 import { CiFacebook } from "react-icons/ci";
 import { BsGoogle, BsLinkedin } from "react-icons/bs";
@@ -7,6 +7,9 @@ import { AuthContext } from "../../ContextProvider/ContextProvider";
 const LogIn = () => {
  const logUser = useContext(AuthContext)
   const {login} = logUser;
+  const location  = useLocation();
+  const navigate = useNavigate()
+  console.log(location);
   console.log(login);
     const handleLogIn = e =>{
         e.preventDefault()
@@ -19,6 +22,7 @@ const LogIn = () => {
             const user = loguser.user;
             // ...
             console.log(user);
+            navigate(location?.state ? location?.state : '/')
           })
           .catch((error) => {
             const errorCode = error.code;

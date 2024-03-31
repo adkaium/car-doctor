@@ -14,35 +14,40 @@ const router = createBrowserRouter([
     element: <Main></Main>,
     children: [
       {
-        path: "/home",
+        path: "/",
         element: <Home></Home>,
       },
       {
         path: "/about",
         element: <Home></Home>,
       },
+      {
+        path: "/login",
+        element: <LogIn></LogIn>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "/checkout/:id",
+        element: (
+          <PrivetRoute>
+            <CheckOut></CheckOut>
+          </PrivetRoute>
+        ),
+        loader: ({params}) =>
+          fetch(`http://localhost:5000/serveces/${params.id}`),
+      },
+      {
+        path: "/bookings",
+        element: (
+          <PrivetRoute>
+            <Bookings></Bookings>
+          </PrivetRoute>
+        ),
+      },
     ],
-  },
-  {
-    path: "/login",
-    element: <LogIn></LogIn>,
-  },
-  {
-    path: "/signup",
-    element: <SignUp></SignUp>,
-  },
-  {
-    path: "/checkout/:id",
-    element: <CheckOut></CheckOut>,
-    loader: ({params}) => fetch(`http://localhost:5000/serveces/${params.id}`),
-  },
-  {
-    path: "/bookings",
-    element: (
-      <PrivetRoute>
-        <Bookings></Bookings>
-      </PrivetRoute>
-    ),
   },
 ]);
 
