@@ -2,13 +2,29 @@ import {Link} from "react-router-dom";
 import logImg from "../../assets/images/login/login.svg";
 import { CiFacebook } from "react-icons/ci";
 import { BsGoogle, BsLinkedin } from "react-icons/bs";
+import { useContext } from "react";
+import { AuthContext } from "../../ContextProvider/ContextProvider";
 const LogIn = () => {
-
+ const logUser = useContext(AuthContext)
+  const {login} = logUser;
+  console.log(login);
     const handleLogIn = e =>{
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const pass = form.password.value;
+        login(email, pass)
+          .then((loguser) => {
+            // Signed in
+            const user = loguser.user;
+            // ...
+            console.log(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(errorCode,errorMessage)
+          });
         console.log(email, pass);
     }
   return (
@@ -78,7 +94,7 @@ const LogIn = () => {
                 </div>
                 <h1 className="mt-5">
                   Have an account?
-                  <Link className="text-[#FF3811]">Sign Up</Link>
+                  <Link className="text-[#FF3811]" to='/signup'>Sign Up</Link>
                 </h1>
               </div>
             </div>

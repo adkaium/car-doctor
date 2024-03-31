@@ -4,6 +4,9 @@ import Main from "../Layout/Main";
 import Home from "../pages/Home/Home/Home";
 import LogIn from "../pages/login/LogIn";
 import SignUp from "../pages/SignUp/SignUp"
+import CheckOut from "../pages/CheckOut/CheckOut";
+import Bookings from "../pages/Bookings/Bookings";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -18,18 +21,6 @@ const router = createBrowserRouter([
         path: "/about",
         element: <Home></Home>,
       },
-      {
-        path: "/ho",
-        element: <Home></Home>,
-      },
-      {
-        path: "/home",
-        element: <Home></Home>,
-      },
-      {
-        path: "/home",
-        element: <Home></Home>,
-      },
     ],
   },
   {
@@ -38,7 +29,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <SignUp></SignUp>
+    element: <SignUp></SignUp>,
+  },
+  {
+    path: "/checkout/:id",
+    element: <CheckOut></CheckOut>,
+    loader: ({params}) => fetch(`http://localhost:5000/serveces/${params.id}`),
+  },
+  {
+    path: "/bookings",
+    element: (
+      <PrivetRoute>
+        <Bookings></Bookings>
+      </PrivetRoute>
+    ),
   },
 ]);
 
