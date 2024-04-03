@@ -1,6 +1,7 @@
 import {useContext} from "react";
 import {useLoaderData} from "react-router-dom";
 import {AuthContext} from "../../ContextProvider/ContextProvider";
+import axios from "axios";
 
 const CheckOut = () => {
   const checkService = useLoaderData();
@@ -23,17 +24,22 @@ const CheckOut = () => {
       img
     };
     console.log(booking);
-
-    fetch("http://localhost:5000/bookings", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(booking),
+    axios.post('http://localhost:5000/bookings')
+    .then(res=>{
+      console.log(res.data);
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  };
+
+  //   fetch("http://localhost:5000/bookings", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(booking),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
+  //}
+  }
   return (
     <div>
       <form onSubmit={handelCheckOut}>

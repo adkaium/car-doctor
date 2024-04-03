@@ -4,6 +4,7 @@ import { CiFacebook } from "react-icons/ci";
 import { BsGoogle, BsLinkedin } from "react-icons/bs";
 import { useContext } from "react";
 import { AuthContext } from "../../ContextProvider/ContextProvider";
+import axios from "axios";
 const LogIn = () => {
  const logUser = useContext(AuthContext)
   const {login} = logUser;
@@ -19,10 +20,23 @@ const LogIn = () => {
         login(email, pass)
           .then((loguser) => {
             // Signed in
-            const user = loguser.user;
+            const loggedUser = loguser.user;
+           console.log(loggedUser);
+            const user = {email}
             // ...
             console.log(user);
-            navigate(location?.state ? location?.state : '/')
+            axios.post("http://localhost:5000/jwt",user,{withCredentials: true
+          })
+            .then(res=>{
+              console.log(res.data);
+              if (res.data.success) {
+                navigate(location?.state ? location?.state : "/");
+              }
+            })
+
+
+
+            // navigate(location?.state ? location?.state : '/')
           })
           .catch((error) => {
             const errorCode = error.code;

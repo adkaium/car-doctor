@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../ContextProvider/ContextProvider";
 import BookingRaw from "./BookingRaw";
+import axios from "axios";
 
 const Bookings = () => {
     const {user} = useContext(AuthContext);
@@ -10,11 +11,16 @@ const Bookings = () => {
     const url = `http://localhost:5000/bookings?email=${user.email}`;
 
     useEffect(()=>{
-        fetch(url)
-        .then(res=>res.json())
-        .then(data=>{
-            setBookings(data)
-        })
+      axios.get(url, {withCredentials:true})
+      .then(res=>{
+      
+        setBookings(res.data)
+      })
+        // fetch(url)
+        // .then(res=>res.json())
+        // .then(data=>{
+        //     setBookings(data)
+        // })
     },[url]);
 
 
@@ -44,8 +50,8 @@ const Bookings = () => {
 
     const handelUpdate = (id)=>{
       console.log(id);
-      const procced = confirm("Are Your want to Delete");
-      if (procced) {
+      // const procced = confirm("Are Your want to Delete");
+      if (id) {
         fetch(`http://localhost:5000/bookings/${id}`, {
           method: "PATCH",
           headers: {
